@@ -1,12 +1,12 @@
 package com.wxss.hhlife.base;
 
-public enum  ResponseInfo {
+public enum RestResultCode {
     SUCCESS("000000","操作成功"),
     SYSTEM_ERROR("999999","系统异常");
     private String code;
     private String message;
 
-    ResponseInfo(String code, String message) {
+    RestResultCode(String code, String message) {
         this.code = code;
         this.message = message;
     }

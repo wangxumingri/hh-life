@@ -1,5 +1,6 @@
 package com.wxss.hhlife.dubbo.merchant.api;
 
+import com.wxss.hhlife.base.ApiResult;
 import com.wxss.hhlife.dubbo.merchant.bean.MerchantCreateParam;
 import com.wxss.hhlife.dubbo.merchant.bean.MerchantCreateResult;
 
@@ -12,5 +13,5 @@ public interface ApiMerchantService {
      * @param merchantCreateParam
      * @return
      */
-    MerchantCreateResult saveMerchantInfo(MerchantCreateParam merchantCreateParam);
+    ApiResult<MerchantCreateResult> saveMerchantInfo(MerchantCreateParam merchantCreateParam);
 }

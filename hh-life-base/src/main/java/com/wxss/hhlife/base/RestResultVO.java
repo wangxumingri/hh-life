@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BaseResponse<T> {
+public class RestResultVO<T> {
     private Boolean success;
     private String resultCode;
     private String resultMessage;

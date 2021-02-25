@@ -1,6 +1,7 @@
 package com.wxss.hhlife.dubbo.merchant.api;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.wxss.hhlife.base.ApiResult;
 import com.wxss.hhlife.base.utils.JsonUtils;
 import com.wxss.hhlife.dubbo.merchant.api.ApiMerchantService;
 import com.wxss.hhlife.dubbo.merchant.bean.MerchantCreateParam;
@@ -23,7 +24,7 @@ public class ApiMerchantServiceImpl implements ApiMerchantService {
     private MerchantService merchantService;
 
     @Override
-    public MerchantCreateResult saveMerchantInfo(MerchantCreateParam merchantCreateParam) {
+    public ApiResult<MerchantCreateResult> saveMerchantInfo(MerchantCreateParam merchantCreateParam) {
         log.info("ApiMerchantServiceImpl#saveMerchantInfo 入参: {}",merchantCreateParam);
 
         MerchantSaveBO merchantSaveBO = new MerchantSaveBO();
@@ -31,16 +32,12 @@ public class ApiMerchantServiceImpl implements ApiMerchantService {
         MerchantCreateResult result = new MerchantCreateResult();
         try {
             merchantService.saveMerchantInfo(merchantSaveBO);
+            log.info("ApiMerchantServiceImpl#saveMerchantInfo 返回: {}", JsonUtils.toJsonStr(result));
 
-
-            result.setSuccess(true);
+            return ApiResult.buildSuccess(result);
         } catch (ServiceException e) {
             log.error("ApiMerchantServiceImpl#saveMerchantInfo 执行异常 ",e);
-            result.setSuccess(false);
+            return ApiResult.buildFailure(e.getMessage());
         }
-
-        log.info("ApiMerchantServiceImpl#saveMerchantInfo 返回: {}", JsonUtils.toJsonStr(result));
-
-        return result;
     }
 }
