@@ -1,15 +1,17 @@
-package com.wxss.hhlife.dubbo.merchant.bo;
+package com.wxss.hhlife.api.merchant.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class MerchantSaveBO {
+public class MerchatCreateRequest  {
     private Long merchantApplyId;
 
     /**
@@ -40,11 +42,15 @@ public class MerchantSaveBO {
     /**
      * 合同开始时间
      */
+
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date contractStartDate;
 
     /**
      * 合同截止时间
      */
+
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date contractEndDate;
 
     /**
