@@ -1,0 +1,28 @@
+
+
+spring:
+  application:
+    name: hh-life-dubbo-server-merchant
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/hh-life?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueraies=true&useSSL=fase
+    username: root
+    password: root
+
+# ------------------  dubbo配置 ------------------
+dubbo:
+  scan:
+    # dubbo服务扫描包
+    base-packages: com.wxss.hhlife.dubbo.merchant.api
+  application:
+    # dubbo应用名称
+    name: dubbo-provider-hhlife-merchant
+  # 协议及端口
+  protocol:
+    name: dubbo
+    port: 20880
+  # zk注册中心
+  registry:
+    address: zookeeper://127.0.0.1:2181
+    group: dubbo
+    client: zkclient

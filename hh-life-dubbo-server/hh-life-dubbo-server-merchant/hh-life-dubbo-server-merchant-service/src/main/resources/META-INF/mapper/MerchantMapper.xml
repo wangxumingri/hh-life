@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="">
+
+    <resultMap id="customerResultMap" type="Hospital">
+        <id property="oid" column="oid" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <result property="status" column="status" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="updatedOn" column="updatedOn" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <insert id="save" parameterType="" useGeneratedKeys="true" keyProperty="oid">
+        INSERT INTO
+
+        VALUES
+        (#{},#{},#{},#{},#{});
+
+    </insert>
+
+    <update id="update" parameterType="">
+        UPDATE
+
+        SET
+
+        WHERE
+        oid = #{oid};
+    </update>
+
+
+    <select id="findOneByOid" resultMap="customerResultMap" parameterType="java.lang.Long">
+        SELECT
+        *
+        FROM
+
+        WHERE
+        oid = #{oid};
+    </select>
+
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM
+
+        WHERE
+        oid = #{oid};
+    </delete>
+    <select id="" resultMap="">
+        SELECT
+        *
+        FROM
+        ;
+    </select>
+
+
+</mapper>
+
+
+
