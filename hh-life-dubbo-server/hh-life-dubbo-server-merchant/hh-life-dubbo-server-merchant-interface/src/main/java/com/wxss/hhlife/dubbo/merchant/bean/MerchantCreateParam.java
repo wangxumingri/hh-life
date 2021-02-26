@@ -1,6 +1,6 @@
 package com.wxss.hhlife.dubbo.merchant.bean;
 
-import com.wxss.hhlife.base.BaseParam;
+import com.wxss.hhlife.base.BaseFacadeReq;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MerchantCreateParam extends BaseParam {
+public class MerchantCreateParam extends BaseFacadeReq {
     private Long merchantApplyId;
 
     /**
