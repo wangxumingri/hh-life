@@ -1,10 +1,11 @@
 package com.wxss.hhlife.api.opcenter.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.wxss.hhlife.api.opcenter.request.MerchatCreateRequest;
+import com.wxss.hhlife.api.opcenter.request.MerchantCreateRequest;
 import com.wxss.hhlife.base.BaseFacadeResp;
 import com.wxss.hhlife.base.RestResultBuilder;
 import com.wxss.hhlife.base.RestResultVO;
+import com.wxss.hhlife.base.utils.JsonUtils;
 import com.wxss.hhlife.dubbo.opcenter.api.ApiMerchantService;
 import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateParam;
 import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateResult;
@@ -24,9 +25,10 @@ public class MerchantController {
     private ApiMerchantService apiMerchantService;
 
     @PostMapping("save")
-    public RestResultVO<MerchantCreateResult> saveMerchantInfo(@RequestBody MerchatCreateRequest merchatCreateRequest){
+    public RestResultVO<MerchantCreateResult> saveMerchantInfo(@RequestBody MerchantCreateRequest merchatCreateRequest){
 //        log.info("MerchantController#saveMerchantInfo 收到请求:{}", JsonUtils.toJsonStr(merchatCreateRequest));
-
+        String s = JsonUtils.toJsonStr(merchatCreateRequest);
+        System.err.println("===="+s);
         MerchantCreateParam merchantCreateParam = new MerchantCreateParam();
         BeanUtils.copyProperties(merchatCreateRequest, merchantCreateParam);
         BaseFacadeResp<MerchantCreateResult> facadeResp = apiMerchantService.saveMerchantInfo(merchantCreateParam);

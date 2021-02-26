@@ -1,6 +1,7 @@
 package com.wxss.hhlife.dubbo.opcenter.service.impl;
 
 import com.wxss.hhlife.base.utils.JsonUtils;
+import com.wxss.hhlife.common.IdGenerateAdapter;
 import com.wxss.hhlife.dubbo.opcenter.bo.MerchantSaveBO;
 import com.wxss.hhlife.dubbo.opcenter.constant.ExceptionMessage;
 import com.wxss.hhlife.dubbo.opcenter.exception.ServiceException;
@@ -12,7 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+
+import static com.wxss.hhlife.dubbo.opcenter.enums.SeqType.MERCHANT;
 
 
 @Service("merchantService")
@@ -22,21 +24,24 @@ public class MerchantServiceImpl implements MerchantService {
     @Autowired
     private MerchantApplyMapper merchantApplyMapper;
 
+    @Autowired
+    private IdGenerateAdapter idGenerateAdapter;
+
     @Override
-    public boolean saveMerchantInfo(MerchantSaveBO merchantSaveBO) throws ServiceException {
+    public boolean saveMerchantInfo(MerchantSaveBO merchantSaveBO)  {
         log.info("MerchantServiceImpl#saveMerchantInfo入参 :{}", JsonUtils.toJsonStr(merchantSaveBO));
 
         // 新增
         // TODO 调用服务，根据类型生成分布式全局唯一ID
-        String merchantId = UUID.randomUUID().toString();
+        String merchantId = idGenerateAdapter.generateId(MERCHANT.name(),"wxss",null);
         merchantSaveBO.setMerchantId(merchantId);
 
         if (merchantSaveBO.getContractStartDate() == null || merchantSaveBO.getContractEndDate() == null){
             // 抛出异常，还是返回封装的错误
-            throw new ServiceException(ExceptionMessage.PARAM_ERROR);
+            return false;
         }
         if (merchantSaveBO.getContractEndDate().before(merchantSaveBO.getContractStartDate())){
-            throw new ServiceException(ExceptionMessage.PARAM_ERROR);
+            return false;
         }
 
         MerchantApply merchantApply = new MerchantApply();
@@ -44,7 +49,7 @@ public class MerchantServiceImpl implements MerchantService {
         int effectRows = merchantApplyMapper.insert(merchantApply);
 
         if (effectRows < 1){
-            throw new ServiceException(ExceptionMessage.INSERT_ERROR);
+            return false;
         }
 
         return true;

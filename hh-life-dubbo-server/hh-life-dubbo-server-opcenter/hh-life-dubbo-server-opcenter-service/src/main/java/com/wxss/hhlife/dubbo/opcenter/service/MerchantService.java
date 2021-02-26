@@ -12,6 +12,6 @@ public interface MerchantService {
      * @param merchantSaveBO 商户信息
      * @return true-保存成功，false-保存失败
      */
-    boolean saveMerchantInfo(MerchantSaveBO merchantSaveBO) throws ServiceException;
+    boolean saveMerchantInfo(MerchantSaveBO merchantSaveBO) ;
 
 }
