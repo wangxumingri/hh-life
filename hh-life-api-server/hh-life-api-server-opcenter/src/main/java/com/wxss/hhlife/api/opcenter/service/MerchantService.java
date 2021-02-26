@@ -1,7 +1,7 @@
-package com.wxss.hhlife.api.merchant.service;
+package com.wxss.hhlife.api.opcenter.service;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.wxss.hhlife.api.merchant.request.MerchatCreateRequest;
+import com.wxss.hhlife.api.opcenter.request.MerchatCreateRequest;
 import com.wxss.hhlife.base.BaseFacadeResp;
 import com.wxss.hhlife.base.RestResultVO;
 import com.wxss.hhlife.base.RestResultBuilder;

@@ -1,11 +1,10 @@
-package com.wxss.hhlife.api.merchant.request;
+package com.wxss.hhlife.api.opcenter.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.Date;
 
 @Getter

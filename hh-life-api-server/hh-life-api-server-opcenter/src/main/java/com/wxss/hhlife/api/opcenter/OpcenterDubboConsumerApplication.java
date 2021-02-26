@@ -1,4 +1,4 @@
-package com.wxss.hhlife.api.merchant;
+package com.wxss.hhlife.api.opcenter;
 
 import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;

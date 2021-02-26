@@ -1,4 +1,4 @@
-package com.wxss.hhlife.api.merchant.support;
+package com.wxss.hhlife.api.opcenter.support;
 
 import com.wxss.hhlife.base.RestResultBuilder;
 import com.wxss.hhlife.base.RestResultVO;

@@ -1,4 +1,4 @@
-package com.wxss.hhlife.api.merchant.request;
+package com.wxss.hhlife.api.opcenter.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

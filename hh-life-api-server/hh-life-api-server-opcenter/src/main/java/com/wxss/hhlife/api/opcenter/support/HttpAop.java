@@ -1,4 +1,4 @@
-package com.wxss.hhlife.api.merchant.support;
+package com.wxss.hhlife.api.opcenter.support;
 
 
 import org.aspectj.lang.JoinPoint;
@@ -23,12 +23,15 @@ public class HttpAop {
     @Pointcut("execution(public * com.wxss..*.controller..*.*(..))")
     public void httpLog() {}
 
+    @Pointcut( value = "@annotation(org.springframework.web.bind.annotation.RestController)")
+    public void annoLog(){}
+
 //    @Pointcut("execution(public * org.esbuilder.business.rbac.action..*.*(..))")
 //    public void rbacActionLog() {
 //    }
 
     //    @Before("httpLog() || rbacActionLog()")
-    @Before("httpLog()")
+    @Before("httpLog() || annoLog()")
     public void requestLog(JoinPoint joinPoint) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
@@ -45,7 +48,7 @@ public class HttpAop {
     }
 
     //    @AfterReturning(returning = "response", pointcut = "httpLog() || rbacActionLog()")
-    @AfterReturning(returning = "response", pointcut = "httpLog()")
+    @AfterReturning(returning = "response", pointcut ="httpLog() || annoLog()")
     public void afterReturning(Object response) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
@@ -57,7 +60,7 @@ public class HttpAop {
     }
 
     //    @AfterThrowing(pointcut = "httpLog() || rbacActionLog()", throwing = "e")
-    @AfterThrowing(pointcut = "httpLog()", throwing = "e")
+    @AfterThrowing(pointcut = "httpLog() || annoLog()", throwing = "e")
     public void afterThrowing(JoinPoint jp, Exception e){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
