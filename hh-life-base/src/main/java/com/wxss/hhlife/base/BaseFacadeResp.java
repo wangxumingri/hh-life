@@ -8,6 +8,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class BaseFacadeResp<T> implements Serializable {
+    private static final long serialVersionUID = -2635631514605171438L;
+
 
     private static final String DEFAULT_SUCCESS_MESSAGE = "操作成功";
     private static final String DEFAULT_FAILURE_MESSAGE = "操作失败";

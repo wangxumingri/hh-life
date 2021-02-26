@@ -13,19 +13,18 @@ public class FacadeCommonRespBuilder {
     /**
      * 使用默认Code和Msg
      * @param req
-     * @param data
      * @param <T>
      * @return
      */
-    public static <T>  BaseFacadeResp<T>  fail(BaseFacadeReq req,T data){
-        return new BaseFacadeResp<>(Boolean.FALSE, req != null ? req.getRequestId() : null,data );
+    public static <T>  BaseFacadeResp<T>  fail(BaseFacadeReq req){
+        return new BaseFacadeResp<>(Boolean.FALSE, req != null ? req.getRequestId() : null,null);
     }
 
     public static <T>  BaseFacadeResp<T>  fail(BaseFacadeReq req,String resultCode,String resultMsg,T data){
         return new BaseFacadeResp<>(Boolean.FALSE, req != null ? req.getRequestId() : null,data,resultCode,resultMsg );
     }
 
-    public static <T>  BaseFacadeResp<T>  failNoData(BaseFacadeReq req,String resultCode,String resultMsg){
+    public static <T>  BaseFacadeResp<T>  fail(BaseFacadeReq req,String resultCode,String resultMsg){
         return new BaseFacadeResp<>(Boolean.FALSE, req != null ? req.getRequestId() : null,null ,resultCode,resultMsg);
     }
 

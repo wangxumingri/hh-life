@@ -6,7 +6,7 @@ public class RestResultBuilder {
     private static final Boolean SUCCESS = true;
     private static final Boolean FAILURE = false;
 
-    public static RestResultVO success(){
+    public static <T> RestResultVO<T> success(){
         RestResultVO response = new RestResultVO();
         response.setSuccess(SUCCESS);
         response.setResultCode(RestResultCode.SUCCESS.getCode());
@@ -21,7 +21,7 @@ public class RestResultBuilder {
         return response;
     }
 
-    public static RestResultVO failure(){
+    public static <T>RestResultVO<T> failure(){
         RestResultVO response = new RestResultVO();
         response.setSuccess(false);
         response.setResultCode(RestResultCode.SYSTEM_ERROR.getCode());
@@ -30,7 +30,7 @@ public class RestResultBuilder {
         return response;
     }
 
-    public static <T> RestResultVO failure(RestResultCode responseInfo){
+    public static <T> RestResultVO<T> failure(RestResultCode responseInfo){
         RestResultVO<T> response = new RestResultVO();
         response.setSuccess(false);
         response.setResultCode(responseInfo.getCode());
@@ -39,7 +39,7 @@ public class RestResultBuilder {
         return response;
     }
 
-    public static  RestResultVO failure(String message,String code){
+    public static  <T> RestResultVO<T> failure(String message,String code){
         RestResultVO response = new RestResultVO();
         response.setSuccess(false);
         response.setResultCode(code);

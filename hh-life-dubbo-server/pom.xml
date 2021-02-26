@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>hh-life-dubbo-server-merchant</module>
+        <module>hh-life-dubbo-server-opcenter</module>
     </modules>
 
 

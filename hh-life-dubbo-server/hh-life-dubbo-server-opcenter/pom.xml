@@ -6,14 +6,17 @@
         <artifactId>hh-life-parent</artifactId>
         <groupId>com.wxss</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../hh-life-parent/pom.xml</relativePath>
+        <relativePath>../../hh-life-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>hh-life-api-server</artifactId>
+
+    <artifactId>hh-life-dubbo-server-opcenter</artifactId>
+
     <packaging>pom</packaging>
+
     <modules>
-        <module>hh-life-api-server-opcenter</module>
+        <module>hh-life-dubbo-server-opcenter-interface</module>
+        <module>hh-life-dubbo-server-opcenter-service</module>
     </modules>
-    <description>为前端系统提供访问接口，是dubbo服务的消费方</description>
 
 </project>
