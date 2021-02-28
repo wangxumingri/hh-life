@@ -17,14 +17,14 @@ public class ApiResult<T> implements Serializable {
     private String message;
     private T data;
 
-    public static  ApiResult buildSuccess(){
-        ApiResult apiResult = new ApiResult();
+    public static  <T> ApiResult<T> buildSuccess(){
+        ApiResult<T> apiResult = new ApiResult<T>();
         apiResult.setSuccess(true);
         apiResult.setMessage(DEFAULT_SUCCESS_MESSAGE);
         return apiResult;
     }
 
-    public static <T> ApiResult buildSuccess(T data){
+    public static <T> ApiResult<T> buildSuccess(T data){
         ApiResult<T> apiResult = new ApiResult<T>();
         apiResult.setSuccess(true);
         apiResult.setMessage(DEFAULT_SUCCESS_MESSAGE);
@@ -32,14 +32,14 @@ public class ApiResult<T> implements Serializable {
         return apiResult;
     }
 
-    public static <T> ApiResult buildFailure(String message){
+    public static <T> ApiResult<T> buildFailure(String message){
         ApiResult<T> apiResult = new ApiResult<T>();
         apiResult.setSuccess(false);
         apiResult.setMessage(message);
         return apiResult;
     }
 
-    public static <T> ApiResult buildFailure(){
+    public static <T> ApiResult<T> buildFailure(){
         ApiResult<T> apiResult = new ApiResult<T>();
         apiResult.setSuccess(false);
         apiResult.setMessage(DEFAULT_FAILURE_MESSAGE);
