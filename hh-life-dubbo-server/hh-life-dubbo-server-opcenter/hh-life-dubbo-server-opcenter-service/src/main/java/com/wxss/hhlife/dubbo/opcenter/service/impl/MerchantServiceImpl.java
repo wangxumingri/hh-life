@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.wxss.hhlife.common.enums.SeqType.MERCHANT;
@@ -73,7 +74,9 @@ public class MerchantServiceImpl implements MerchantService {
         MerchantListDAO merchantListDAO = new MerchantListDAO();
         BeanUtils.copyProperties(merchantListBO,merchantListDAO);
         if (merchantListDAO.getPageNumber() < 1){
-            merchantListDAO.setPageNumber(1);
+            merchantListDAO.setPageNumber(0);
+        }else {
+            merchantListDAO.setPageNumber(merchantListDAO.getPageNumber() -1);
         }
         if (merchantListDAO.getPageSize()< 10){
             merchantListDAO.setPageSize(10);
@@ -85,18 +88,22 @@ public class MerchantServiceImpl implements MerchantService {
         result.setPageSize(merchantListDAO.getPageSize());
         result.setRowTotal(rowTotal);
         result.setPageCount();
-        List<MerchantInfoDTO> data = result.getData();
+        List<MerchantInfoDTO> infoDTOList = new ArrayList<>();
+        result.setData(infoDTOList);
         if (merchantApplyList != null && merchantApplyList.size() >0){
             // TODO 获取地址和门店数量优化成批量
             for (MerchantApply merchantApply : merchantApplyList) {
                 MerchantInfoDTO merchantInfoDTO = new MerchantInfoDTO();
+                merchantInfoDTO.setMerchantName(merchantApply.getMerchantName());
+                merchantInfoDTO.setMerchantStatus(merchantApply.getMerchantStatus());
                 merchantInfoDTO.setAuditStatus(merchantApply.getAuditStatus());
                 merchantInfoDTO.setCreateTime(merchantApply.getCreateTime());
                 merchantInfoDTO.setMerchantId(merchantApply.getMerchantId());
+                merchantInfoDTO.setCreateTime(merchantApply.getCreateTime());
                 // TODO 门店待实现
                 merchantInfoDTO.setShopCount(0);
                 merchantInfoDTO.setAddress("假的地址");
-                data.add(merchantInfoDTO);
+                infoDTOList.add(merchantInfoDTO);
             }
         }
         log.info("MerchantServiceImpl#selectMerchantList 返回 :{}", JsonUtils.toJsonStr(result));

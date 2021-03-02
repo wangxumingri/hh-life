@@ -11,6 +11,6 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @ToString
-public class MerchantCreateResult implements Serializable {
+public class MerchantCreateResponse implements Serializable {
 
 }

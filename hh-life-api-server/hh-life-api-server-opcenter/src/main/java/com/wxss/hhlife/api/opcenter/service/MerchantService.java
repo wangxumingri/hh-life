@@ -6,8 +6,8 @@ import com.wxss.hhlife.base.BaseFacadeResp;
 import com.wxss.hhlife.base.RestResultVO;
 import com.wxss.hhlife.base.RestResultBuilder;
 import com.wxss.hhlife.dubbo.opcenter.api.ApiMerchantService;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateParam;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateResult;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateRequest;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +17,9 @@ public class MerchantService {
     private ApiMerchantService apiMerchantService;
 
     public RestResultVO saveMerchantInfo(MerchantCreateReqVO merchatCreateRequest) {
-        MerchantCreateParam merchantCreateParam = new MerchantCreateParam();
-        BeanUtils.copyProperties(merchatCreateRequest, merchantCreateParam);
-        BaseFacadeResp<MerchantCreateResult> facadeResp = apiMerchantService.saveMerchantInfo(merchantCreateParam);
+        MerchantCreateRequest merchantCreateRequest = new MerchantCreateRequest();
+        BeanUtils.copyProperties(merchatCreateRequest, merchantCreateRequest);
+        BaseFacadeResp<MerchantCreateResponse> facadeResp = apiMerchantService.saveMerchantInfo(merchantCreateRequest);
 
         return facadeResp.getSuccess() ? RestResultBuilder.success() : RestResultBuilder.failure();
     }

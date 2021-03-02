@@ -1,0 +1,49 @@
+
+
+spring:
+  application:
+    name: hh-life-dubbo-server-opcenter
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/hh_life?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true&useSSL=false
+    username: root
+    password: root
+    # 连接池配置
+    hikari:
+      connection-timeout: 60000
+      idle-timeout: 60000
+      validation-timeout: 3000
+      max-lifetime: 60000
+      login-timeout: 5
+      maximum-pool-size: 60
+      minimum-idle: 10
+
+mybatis:
+  #  mybatis映射文件位置
+  mapper-locations: classpath:/META-INF/mybatis/mapper/*.xml
+  # mybatis全局配置文件位置
+#  config-location: classpath:/mybatis/config/mybatis-config.xml
+
+
+logging:
+  level:
+    # 只打印sql语句
+    com.example.demo.dao: debug
+
+# ------------------  dubbo配置 ------------------
+dubbo:
+  scan:
+    # dubbo服务扫描包
+    base-packages: com.wxss.hhlife.dubbo.opcenter.api
+  application:
+    # dubbo应用名称
+    name: dubbo-provider-hhlife-opcenter
+  # 协议及端口
+  protocol:
+    name: dubbo
+    port: 20880
+  # zk注册中心
+  registry:
+    address: zookeeper://127.0.0.1:2181
+    group: dubbo
+    client: zkclient

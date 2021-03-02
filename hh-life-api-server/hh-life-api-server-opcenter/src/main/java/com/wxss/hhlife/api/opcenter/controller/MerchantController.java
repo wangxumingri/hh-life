@@ -2,20 +2,24 @@ package com.wxss.hhlife.api.opcenter.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.wxss.hhlife.api.opcenter.request.MerchantCreateReqVO;
+import com.wxss.hhlife.api.opcenter.request.MerchantListInfoVO;
 import com.wxss.hhlife.api.opcenter.request.MerchantListReqVO;
 import com.wxss.hhlife.api.opcenter.request.MerchantListRespVO;
 import com.wxss.hhlife.base.BaseFacadePageResp;
 import com.wxss.hhlife.base.BaseFacadeResp;
 import com.wxss.hhlife.base.RestResultBuilder;
 import com.wxss.hhlife.base.RestResultVO;
+import com.wxss.hhlife.base.utils.JsonUtils;
 import com.wxss.hhlife.dubbo.opcenter.api.ApiMerchantService;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateParam;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateResult;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListParam;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListResult;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateRequest;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateResponse;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListRequest;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("merchant")
@@ -29,24 +33,27 @@ public class MerchantController {
     private ApiMerchantService apiMerchantService;
 
     @PostMapping("save")
-    public RestResultVO<MerchantCreateResult> saveMerchantInfo(@RequestBody MerchantCreateReqVO merchantCreateRequest){
-//        log.info("MerchantController#saveMerchantInfo 收到请求:{}", JsonUtils.toJsonStr(merchatCreateRequest));
-        MerchantCreateParam merchantCreateParam = new MerchantCreateParam();
+    public RestResultVO<MerchantCreateResponse> saveMerchantInfo(@RequestBody MerchantCreateReqVO merchantCreateRequest){
+        MerchantCreateRequest merchantCreateParam = new MerchantCreateRequest();
         BeanUtils.copyProperties(merchantCreateRequest, merchantCreateParam);
-        BaseFacadeResp<MerchantCreateResult> facadeResp = apiMerchantService.saveMerchantInfo(merchantCreateParam);
-        RestResultVO<MerchantCreateResult> resultVO = facadeResp.getSuccess() ? RestResultBuilder.success() : RestResultBuilder.failure();
-
-//        log.info("MerchantController#saveMerchantInfo 返回响应:{}", JsonUtils.toJsonStr(resultVO));
-        return resultVO;
+        BaseFacadeResp<MerchantCreateResponse> facadeResp = apiMerchantService.saveMerchantInfo(merchantCreateParam);
+        return facadeResp.getSuccess() ? RestResultBuilder.success() : RestResultBuilder.failure();
     }
 
     @PostMapping("list")
-    public RestResultVO<MerchantListRespVO> selectMerchantList(@RequestBody MerchantListReqVO request){
-        MerchantListParam param = new MerchantListParam();
-        BeanUtils.copyProperties(request,param);
-        BaseFacadePageResp<MerchantListResult> merchantList = apiMerchantService.getMerchantList(param);
+    public RestResultVO<MerchantListRespVO> selectMerchantList(@RequestBody MerchantListReqVO reqVO){
+        MerchantListRequest apiRequest = new MerchantListRequest();
+        BeanUtils.copyProperties(reqVO,apiRequest);
+        BaseFacadePageResp<MerchantListResponse> facadePageResp = apiMerchantService.getMerchantList(apiRequest);
 
-        return merchantList.getSuccess()  ? RestResultBuilder.success()
+        MerchantListRespVO respVO = new MerchantListRespVO();
+        MerchantListResponse data = facadePageResp.getData();
+        List<MerchantListInfoVO> infoVOList = JsonUtils.copyList(data.getMerInfoList(), MerchantListInfoVO.class);
+        respVO.setMerchantInfo(infoVOList);
+        respVO.setPageNum(facadePageResp.getPageNum());
+        respVO.setPageSize(facadePageResp.getPageSize());
+        respVO.setRowTotal(facadePageResp.getRowTotal());
+        return  RestResultBuilder.success(respVO);
 
     }
     @GetMapping("test")

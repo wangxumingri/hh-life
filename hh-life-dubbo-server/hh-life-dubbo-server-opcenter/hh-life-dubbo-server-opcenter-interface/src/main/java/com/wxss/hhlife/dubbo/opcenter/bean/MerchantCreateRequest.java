@@ -12,7 +12,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @ToString
-public class MerchantCreateParam extends BaseFacadeReq {
+public class MerchantCreateRequest extends BaseFacadeReq {
 
     private static final long serialVersionUID = -6470761768784548439L;
     private Long merchantApplyId;

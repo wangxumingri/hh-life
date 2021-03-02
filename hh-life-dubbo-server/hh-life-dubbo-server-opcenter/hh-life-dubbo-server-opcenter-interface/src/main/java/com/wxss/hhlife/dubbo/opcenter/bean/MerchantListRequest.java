@@ -12,7 +12,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @ToString
-public class MerchantListParam extends BaseFacadeReq {
+public class MerchantListRequest extends BaseFacadeReq {
     private int pageNumber ;
     private int pageSize ;
 

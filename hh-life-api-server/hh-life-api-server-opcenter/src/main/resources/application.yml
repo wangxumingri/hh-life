@@ -1,17 +1,3 @@
 spring:
-  application:
-    name: hh-life-dubbo-api-opcenter
-
-# ------------------  dubbo配置 ------------------
-dubbo:
-  application:
-    # dubbo应用名称
-    name: dubbo-consumer-hhlife-opcenter
-  # zk注册中心
-  registry:
-    address: zookeeper://127.0.0.1:2181
-    group: dubbo
-    client: zkclient
-
-server:
-  port: 10000
+  profiles:
+    active: sit

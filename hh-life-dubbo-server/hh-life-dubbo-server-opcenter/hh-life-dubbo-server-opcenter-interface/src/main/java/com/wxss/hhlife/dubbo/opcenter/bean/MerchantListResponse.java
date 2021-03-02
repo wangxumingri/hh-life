@@ -13,7 +13,9 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
-public class MerchantListResult implements Serializable {
-    private static final long serialVersionUID = -7357502580114535765L;
+public class MerchantListResponse implements Serializable {
+
+    private static final long serialVersionUID = -8473976234890718026L;
     private List<MerchantListInfo> merInfoList;
+
 }

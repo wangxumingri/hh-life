@@ -28,6 +28,10 @@ public class FacadeCommonRespBuilder {
         return new BaseFacadeResp<>(Boolean.FALSE, req != null ? req.getRequestId() : null,null ,resultCode,resultMsg);
     }
 
+    public static <T>  BaseFacadeResp<T>  fail(BaseFacadeReq req,T data){
+        return new BaseFacadeResp<>(Boolean.FALSE, req != null ? req.getRequestId() : null,data);
+    }
+
 
     public static <T>  BaseFacadePageResp<T>  successPage(BaseFacadeReq req,T data,Page page){
         return new BaseFacadePageResp<>(Boolean.TRUE, req != null ? req.getRequestId() : null,data,page );

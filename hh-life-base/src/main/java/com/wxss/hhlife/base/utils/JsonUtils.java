@@ -2,6 +2,7 @@ package com.wxss.hhlife.base.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
@@ -23,8 +24,8 @@ public class JsonUtils {
         return gson.fromJson(jsonStr,tClass);
     }
 
-    public static <T> T copy(List<?> source,Class<T> clazz){
-        String json = gson.toJson(source);
-        return gson.fromJson(json, clazz);
+    public static <T> List<T> copyList(List<?> source,Class<T> clazz){
+       String json = gson.toJson(source);
+       return gson.fromJson(json, TypeToken.getParameterized(List.class, clazz).getType());
     }
 }

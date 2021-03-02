@@ -1,12 +1,11 @@
 package com.wxss.hhlife.dubbo.opcenter.api;
 
-import com.wxss.hhlife.base.ApiResult;
 import com.wxss.hhlife.base.BaseFacadePageResp;
 import com.wxss.hhlife.base.BaseFacadeResp;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateParam;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateResult;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListParam;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListResult;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateRequest;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateResponse;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListRequest;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListResponse;
 
 /**
  * 商户服务dubbo接口定义
@@ -14,15 +13,15 @@ import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListResult;
 public interface ApiMerchantService {
     /**
      * 保存商户信息
-     * @param merchantCreateParam
+     * @param merchantCreateRequest
      * @return
      */
-    BaseFacadeResp<MerchantCreateResult> saveMerchantInfo(MerchantCreateParam merchantCreateParam);
+    BaseFacadeResp<MerchantCreateResponse> saveMerchantInfo(MerchantCreateRequest merchantCreateRequest);
 
     /**
      * 查询商户进件列表
      * @param listParam
      * @return
      */
-    BaseFacadePageResp<MerchantListResult> getMerchantList(MerchantListParam listParam);
+    BaseFacadePageResp<MerchantListResponse> getMerchantList(MerchantListRequest listParam);
 }

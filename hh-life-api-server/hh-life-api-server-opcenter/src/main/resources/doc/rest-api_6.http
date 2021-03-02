@@ -1,0 +1,58 @@
+POST http://localhost:10000/merchant/list
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "pageNumber": 1,
+  "pageSize": 10,
+  "merchantId": null,
+  "merchantName": "测试",
+  "merchantStatus": null,
+  "contactPhone": null,
+  "provinceId": null,
+  "cityId": null,
+  "areaId": null,
+  "auditStatus": null
+}
+
+###
+POST http://localhost:10000/merchant/save
+Content-Type: application/json
+Cache-Control: no-cache
+
+{
+  "merchantApplyId": null,
+  "merchantId": null,
+  "merchantName": "测试商户3",
+  "merchantStatus": null,
+  "contactName": null,
+  "contactPhone": null,
+  "contractStartDate": "2020-01-02 11:00:00",
+  "contractEndDate": "2020-05-02 11:00:00",
+  "provinceId": null,
+  "cityId": null,
+  "areaId": null,
+  "detailAddr": null,
+  "firstOrgId": null,
+  "secondOrgId": null,
+  "thirdOrgId": null,
+  "incomingId": null,
+  "incomingType": null,
+  "auditJnlNo": null,
+  "auditStatus": null,
+  "acctNo": null,
+  "acctType": null,
+  "acctName": null,
+  "openBankName": null,
+  "openBankId": null,
+  "openProvinceId": null,
+  "openProvinceName": null,
+  "openCityId": null,
+  "openCityName": null,
+  "openNetId": null,
+  "openNetName": null,
+  "isSignCoupon": null,
+  "isSignOnlinePay": null
+}
+

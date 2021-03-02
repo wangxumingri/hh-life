@@ -445,7 +445,7 @@
     from merchant_apply
     <where>
       <if test="merchantName != null and merchantName != ''">
-        and merchantName = #{merchantName,jdbcType=VARCHAR}
+        and merchantName like CONCAT("%",#{merchantName,jdbcType=VARCHAR},"%")
       </if>
       <if test="merchantId != null and merchantId != ''">
         and merchantId = #{merchantId,jdbcType=VARCHAR}
@@ -485,7 +485,7 @@
     from merchant_apply
     <where>
       <if test="merchantName != null and merchantName != ''">
-        and merchantName = #{merchantName,jdbcType=VARCHAR}
+        and merchantName like CONCAT("%",#{merchantName,jdbcType=VARCHAR},"%")
       </if>
       <if test="merchantId != null and merchantId != ''">
         and merchantId = #{merchantId,jdbcType=VARCHAR}
