@@ -3,6 +3,8 @@ package com.wxss.hhlife.base.utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
+
 public class JsonUtils {
     private static Gson gson = new Gson();
 
@@ -19,5 +21,10 @@ public class JsonUtils {
 
     public static <T> T fromJson(String jsonStr,Class<T> tClass){
         return gson.fromJson(jsonStr,tClass);
+    }
+
+    public static <T> T copy(List<?> source,Class<T> clazz){
+        String json = gson.toJson(source);
+        return gson.fromJson(json, clazz);
     }
 }

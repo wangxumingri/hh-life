@@ -1,21 +1,21 @@
 package com.wxss.hhlife.dubbo.opcenter.bean;
 
-import com.wxss.hhlife.base.BaseFacadeReq;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 
+//
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
-public class MerchantListParam extends BaseFacadeReq {
-    private int pageNumber ;
-    private int pageSize ;
+@NoArgsConstructor
+public class MerchantListInfo implements Serializable {
 
+    private static final long serialVersionUID = -4464169960931301968L;
     /**商户编号*/
     private String merchantId;
     /**商户名称*/
@@ -24,10 +24,6 @@ public class MerchantListParam extends BaseFacadeReq {
      * 商户状态:NORMAL-正常 、EXPIRED-过期、FREEZED-过期
      */
     private String merchantStatus;
-    /**
-     * 联系人手机号
-     */
-    private String contactPhone;
 
     /**
      * 审核状态
@@ -37,25 +33,15 @@ public class MerchantListParam extends BaseFacadeReq {
     /**
      * 创建开始时间
      */
-    private Date createStartTime;
+    private Date createTime;
 
     /**
-     * 创建结束时间
+     * 商户地址
      */
-    private Date createEndTime;
+    private String address;
 
     /**
-     * 省/直辖市编号
+     * 下述门店数量
      */
-    private Integer provinceId;
-
-    /**
-     * 市/直辖市编号
-     */
-    private Integer cityId;
-
-    /**
-     * 县/区编号
-     */
-    private Integer areaId;
+    private int shopCount;
 }

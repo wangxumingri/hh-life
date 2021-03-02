@@ -1,7 +1,7 @@
 package com.wxss.hhlife.api.opcenter.service;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.wxss.hhlife.api.opcenter.request.MerchantCreateRequest;
+import com.wxss.hhlife.api.opcenter.request.MerchantCreateReqVO;
 import com.wxss.hhlife.base.BaseFacadeResp;
 import com.wxss.hhlife.base.RestResultVO;
 import com.wxss.hhlife.base.RestResultBuilder;
@@ -16,7 +16,7 @@ public class MerchantService {
     @Reference(version = "1.1.0")
     private ApiMerchantService apiMerchantService;
 
-    public RestResultVO saveMerchantInfo(MerchantCreateRequest merchatCreateRequest) {
+    public RestResultVO saveMerchantInfo(MerchantCreateReqVO merchatCreateRequest) {
         MerchantCreateParam merchantCreateParam = new MerchantCreateParam();
         BeanUtils.copyProperties(merchatCreateRequest, merchantCreateParam);
         BaseFacadeResp<MerchantCreateResult> facadeResp = apiMerchantService.saveMerchantInfo(merchantCreateParam);
