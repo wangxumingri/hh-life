@@ -1,6 +1,9 @@
 package com.wxss.hhlife.dubbo.opcenter.mapper;
 
+import com.wxss.hhlife.dubbo.opcenter.dao.MerchantListDAO;
 import com.wxss.hhlife.dubbo.opcenter.model.MerchantApply;
+
+import java.util.List;
 
 public interface MerchantApplyMapper {
     int deleteByPrimaryKey(Long merchantApplyId);
@@ -14,4 +17,8 @@ public interface MerchantApplyMapper {
     int updateByPrimaryKeySelective(MerchantApply record);
 
     int updateByPrimaryKey(MerchantApply record);
+
+    List<MerchantApply> selectMerchantList(MerchantListDAO merchantListDAO);
+
+    int selectMerchantCount(MerchantListDAO merchantListDAO);
 }

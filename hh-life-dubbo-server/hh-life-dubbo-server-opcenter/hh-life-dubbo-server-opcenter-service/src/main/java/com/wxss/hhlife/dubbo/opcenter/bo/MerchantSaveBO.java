@@ -25,6 +25,7 @@ public class MerchantSaveBO {
     /**
      * 商户状态:NORMAL-正常 、EXPIRED-过期、FREEZED-过期
      */
+
     private String merchantStatus;
 
     /**

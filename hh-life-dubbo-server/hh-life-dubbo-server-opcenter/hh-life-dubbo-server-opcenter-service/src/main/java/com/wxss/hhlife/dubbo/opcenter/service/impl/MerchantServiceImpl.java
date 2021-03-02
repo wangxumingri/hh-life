@@ -1,10 +1,12 @@
 package com.wxss.hhlife.dubbo.opcenter.service.impl;
 
+import com.wxss.hhlife.base.PageData;
 import com.wxss.hhlife.base.utils.JsonUtils;
 import com.wxss.hhlife.common.IdGenerateAdapter;
+import com.wxss.hhlife.dubbo.opcenter.bo.MerchantListBO;
 import com.wxss.hhlife.dubbo.opcenter.bo.MerchantSaveBO;
-import com.wxss.hhlife.dubbo.opcenter.constant.ExceptionMessage;
-import com.wxss.hhlife.dubbo.opcenter.exception.ServiceException;
+import com.wxss.hhlife.dubbo.opcenter.dao.MerchantListDAO;
+import com.wxss.hhlife.dubbo.opcenter.dto.MerchantInfoDTO;
 import com.wxss.hhlife.dubbo.opcenter.mapper.MerchantApplyMapper;
 import com.wxss.hhlife.dubbo.opcenter.model.MerchantApply;
 import com.wxss.hhlife.dubbo.opcenter.service.MerchantService;
@@ -14,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import static com.wxss.hhlife.dubbo.opcenter.enums.SeqType.MERCHANT;
+import java.util.List;
+
+import static com.wxss.hhlife.common.enums.SeqType.MERCHANT;
 
 
 @Service("merchantService")
@@ -27,23 +31,24 @@ public class MerchantServiceImpl implements MerchantService {
     @Autowired
     private IdGenerateAdapter idGenerateAdapter;
 
+    /**
+     * 返回结果需要改造
+     * @param merchantSaveBO 商户信息
+     * @return
+     */
     @Override
     public boolean saveMerchantInfo(MerchantSaveBO merchantSaveBO)  {
         log.info("MerchantServiceImpl#saveMerchantInfo入参 :{}", JsonUtils.toJsonStr(merchantSaveBO));
-
+        boolean verification = this.verification(merchantSaveBO);
+        if (!verification){
+            return false;
+        }
+        // TODO 数据校验
+        // TODO 对接外部接口
         // 新增
         // TODO 调用服务，根据类型生成分布式全局唯一ID
-        String merchantId = idGenerateAdapter.generateId(MERCHANT.name(),"wxss",null);
+        String merchantId = idGenerateAdapter.generateId(MERCHANT.getSeqType(),null,null);
         merchantSaveBO.setMerchantId(merchantId);
-
-        if (merchantSaveBO.getContractStartDate() == null || merchantSaveBO.getContractEndDate() == null){
-            // 抛出异常，还是返回封装的错误
-            return false;
-        }
-        if (merchantSaveBO.getContractEndDate().before(merchantSaveBO.getContractStartDate())){
-            return false;
-        }
-
         MerchantApply merchantApply = new MerchantApply();
         BeanUtils.copyProperties(merchantSaveBO,merchantApply);
         int effectRows = merchantApplyMapper.insert(merchantApply);
@@ -51,7 +56,51 @@ public class MerchantServiceImpl implements MerchantService {
         if (effectRows < 1){
             return false;
         }
+        log.info("MerchantServiceImpl#saveMerchantInfo保存成功 {}",merchantId);
 
         return true;
+    }
+
+    private boolean verification(MerchantSaveBO merchantSaveBO){
+        return true;
+    }
+
+    @Override
+    public PageData<MerchantInfoDTO> selectMerchantList(MerchantListBO merchantListBO) {
+        log.info("MerchantServiceImpl#selectMerchantList 入参 :{}", JsonUtils.toJsonStr(merchantListBO));
+
+        // TODO 写一个工具类，去除首尾空字符串
+        MerchantListDAO merchantListDAO = new MerchantListDAO();
+        BeanUtils.copyProperties(merchantListBO,merchantListDAO);
+        if (merchantListDAO.getPageNumber() < 1){
+            merchantListDAO.setPageNumber(1);
+        }
+        if (merchantListDAO.getPageSize()< 10){
+            merchantListDAO.setPageSize(10);
+        }
+        int rowTotal = merchantApplyMapper.selectMerchantCount(merchantListDAO);
+        List<MerchantApply> merchantApplyList = merchantApplyMapper.selectMerchantList(merchantListDAO);
+        PageData<MerchantInfoDTO> result = new PageData<>();
+        result.setPageNum(merchantListDAO.getPageNumber());
+        result.setPageSize(merchantListDAO.getPageSize());
+        result.setRowTotal(rowTotal);
+        result.setPageCount();
+        List<MerchantInfoDTO> data = result.getData();
+        if (merchantApplyList != null && merchantApplyList.size() >0){
+            // TODO 获取地址和门店数量优化成批量
+            for (MerchantApply merchantApply : merchantApplyList) {
+                MerchantInfoDTO merchantInfoDTO = new MerchantInfoDTO();
+                merchantInfoDTO.setAuditStatus(merchantApply.getAuditStatus());
+                merchantInfoDTO.setCreateTime(merchantApply.getCreateTime());
+                merchantInfoDTO.setMerchantId(merchantApply.getMerchantId());
+                // TODO 门店待实现
+                merchantInfoDTO.setShopCount(0);
+                merchantInfoDTO.setAddress("假的地址");
+                data.add(merchantInfoDTO);
+            }
+        }
+        log.info("MerchantServiceImpl#selectMerchantList 返回 :{}", JsonUtils.toJsonStr(result));
+
+        return result;
     }
 }

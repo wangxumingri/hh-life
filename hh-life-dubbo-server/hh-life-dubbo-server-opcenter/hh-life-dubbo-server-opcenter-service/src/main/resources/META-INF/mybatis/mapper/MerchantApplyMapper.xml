@@ -437,4 +437,81 @@
       isSignOnlinePay = #{isSignOnlinePay,jdbcType=BOOLEAN}
     where merchantApplyId = #{merchantApplyId,jdbcType=BIGINT}
   </update>
+
+
+  <select id="selectMerchantList" parameterType="com.wxss.hhlife.dubbo.opcenter.dao.MerchantListDAO" resultMap="BaseResultMap">
+    select
+        merchantApplyId,merchantId,merchantName,merchantStatus,auditStatus,createTime,provinceId,cityId,areaId
+    from merchant_apply
+    <where>
+      <if test="merchantName != null and merchantName != ''">
+        and merchantName = #{merchantName,jdbcType=VARCHAR}
+      </if>
+      <if test="merchantId != null and merchantId != ''">
+        and merchantId = #{merchantId,jdbcType=VARCHAR}
+      </if>
+      <if test="merchantId != null and merchantId != ''">
+        and merchantId = #{merchantId,jdbcType=VARCHAR}
+      </if>
+
+      <if test="merchantStatus != null and merchantStatus != ''">
+        and merchantStatus = #{merchantStatus,jdbcType=VARCHAR}
+      </if>
+
+      <if test="contactPhone != null and contactPhone != ''">
+        and contactPhone = #{contactPhone,jdbcType=VARCHAR}
+      </if>
+
+      <if test="auditStatus != null and auditStatus != ''">
+        and auditStatus = #{auditStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="createStartTime != null ">
+        and <![CDATA[ createTime >=]]> #{createStartTime}
+      </if>
+      <if test="createEndTime != null ">
+        and <![CDATA[ createTime <=]]> #{createEndTime}
+      </if>
+    </where>
+
+    <if test="pageNumber != null and pageSize != null">
+      limit #{pageNumber}, #{pageSize}
+    </if>
+  </select>
+
+
+  <select id="selectMerchantCount" parameterType="com.wxss.hhlife.dubbo.opcenter.dao.MerchantListDAO" resultType="int" >
+    select
+        count(merchantApplyId)
+    from merchant_apply
+    <where>
+      <if test="merchantName != null and merchantName != ''">
+        and merchantName = #{merchantName,jdbcType=VARCHAR}
+      </if>
+      <if test="merchantId != null and merchantId != ''">
+        and merchantId = #{merchantId,jdbcType=VARCHAR}
+      </if>
+      <if test="merchantId != null and merchantId != ''">
+        and merchantId = #{merchantId,jdbcType=VARCHAR}
+      </if>
+
+      <if test="merchantStatus != null and merchantStatus != ''">
+        and merchantStatus = #{merchantStatus,jdbcType=VARCHAR}
+      </if>
+
+      <if test="contactPhone != null and contactPhone != ''">
+        and contactPhone = #{contactPhone,jdbcType=VARCHAR}
+      </if>
+
+      <if test="auditStatus != null and auditStatus != ''">
+        and auditStatus = #{auditStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="createStartTime != null ">
+        and <![CDATA[ createTime >=]]> #{createStartTime}
+      </if>
+      <if test="createEndTime != null ">
+        and <![CDATA[ createTime <=]]> #{createEndTime}
+      </if>
+    </where>
+  </select>
+
 </mapper>

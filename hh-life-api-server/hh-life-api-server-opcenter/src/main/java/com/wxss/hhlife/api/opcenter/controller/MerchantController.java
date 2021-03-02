@@ -1,14 +1,18 @@
 package com.wxss.hhlife.api.opcenter.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.wxss.hhlife.api.opcenter.request.MerchantCreateRequest;
+import com.wxss.hhlife.api.opcenter.request.MerchantCreateReqVO;
+import com.wxss.hhlife.api.opcenter.request.MerchantListReqVO;
+import com.wxss.hhlife.api.opcenter.request.MerchantListRespVO;
+import com.wxss.hhlife.base.BaseFacadePageResp;
 import com.wxss.hhlife.base.BaseFacadeResp;
 import com.wxss.hhlife.base.RestResultBuilder;
 import com.wxss.hhlife.base.RestResultVO;
-import com.wxss.hhlife.base.utils.JsonUtils;
 import com.wxss.hhlife.dubbo.opcenter.api.ApiMerchantService;
 import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateParam;
 import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateResult;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListParam;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +29,10 @@ public class MerchantController {
     private ApiMerchantService apiMerchantService;
 
     @PostMapping("save")
-    public RestResultVO<MerchantCreateResult> saveMerchantInfo(@RequestBody MerchantCreateRequest merchatCreateRequest){
+    public RestResultVO<MerchantCreateResult> saveMerchantInfo(@RequestBody MerchantCreateReqVO merchantCreateRequest){
 //        log.info("MerchantController#saveMerchantInfo 收到请求:{}", JsonUtils.toJsonStr(merchatCreateRequest));
-        String s = JsonUtils.toJsonStr(merchatCreateRequest);
-        System.err.println("===="+s);
         MerchantCreateParam merchantCreateParam = new MerchantCreateParam();
-        BeanUtils.copyProperties(merchatCreateRequest, merchantCreateParam);
+        BeanUtils.copyProperties(merchantCreateRequest, merchantCreateParam);
         BaseFacadeResp<MerchantCreateResult> facadeResp = apiMerchantService.saveMerchantInfo(merchantCreateParam);
         RestResultVO<MerchantCreateResult> resultVO = facadeResp.getSuccess() ? RestResultBuilder.success() : RestResultBuilder.failure();
 
@@ -38,6 +40,15 @@ public class MerchantController {
         return resultVO;
     }
 
+    @PostMapping("list")
+    public RestResultVO<MerchantListRespVO> selectMerchantList(@RequestBody MerchantListReqVO request){
+        MerchantListParam param = new MerchantListParam();
+        BeanUtils.copyProperties(request,param);
+        BaseFacadePageResp<MerchantListResult> merchantList = apiMerchantService.getMerchantList(param);
+
+        return merchantList.getSuccess()  ? RestResultBuilder.success()
+
+    }
     @GetMapping("test")
     public String test(){
         return "YES";

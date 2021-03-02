@@ -1,9 +1,8 @@
 package com.wxss.hhlife.common;
 
+import com.wxss.hhlife.common.enums.SeqType;
 import org.springframework.stereotype.Component;
 
-import java.security.SecureRandom;
-import java.util.UUID;
 
 @Component
 public class MerchantIdGenerateStrategy implements IdGenerateStrategy{
@@ -15,14 +14,8 @@ public class MerchantIdGenerateStrategy implements IdGenerateStrategy{
 
     @Override
     public String generateId(String uid, String orderType) {
-        // TODO 暂时使用UUID，待学习分布式ID再完善
-        StringBuilder builder = new StringBuilder();
-        String uuid = UUID.randomUUID().toString().replace("-","");
-        String substring = uuid.substring(10);
-
-        long currentTimeMillis = System.currentTimeMillis();
-        String substring1 = String.valueOf(currentTimeMillis).substring(8);
-        System.out.println(currentTimeMillis);
-        return builder.append(substring).append(substring1).toString();
+        // 雪花算术生成的ID
+        String snowflakeId = SnowflakeUtils.generateId();
+        return SeqType.MERCHANT.getIdPrefix() + snowflakeId;
     }
 }
