@@ -1,5 +1,6 @@
 package com.wxss.hhlife.api.opcenter.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,12 +10,9 @@ import java.util.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @ToString
-public class MerchantListReqVO {
-    private int pageNumber = 1;
-    private int pageSize = 10;
-
+@NoArgsConstructor
+public class MerchantApplyListInfoVO {
     /**商户编号*/
     private String merchantId;
     /**商户名称*/
@@ -23,10 +21,6 @@ public class MerchantListReqVO {
      * 商户状态:NORMAL-正常 、EXPIRED-过期、FREEZED-过期
      */
     private String merchantStatus;
-    /**
-     * 联系人手机号
-     */
-    private String contactPhone;
 
     /**
      * 审核状态
@@ -36,25 +30,16 @@ public class MerchantListReqVO {
     /**
      * 创建开始时间
      */
-    private Date createStartTime;
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 
     /**
-     * 创建结束时间
+     * 商户地址
      */
-    private Date createEndTime;
+    private String address;
 
     /**
-     * 省/直辖市编号
+     * 下述门店数量
      */
-    private Integer provinceId;
-
-    /**
-     * 市/直辖市编号
-     */
-    private Integer cityId;
-
-    /**
-     * 县/区编号
-     */
-    private Integer areaId;
+    private int shopCount;
 }

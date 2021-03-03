@@ -2,9 +2,9 @@ package com.wxss.hhlife.api.opcenter.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.wxss.hhlife.api.opcenter.request.MerchantCreateReqVO;
-import com.wxss.hhlife.api.opcenter.request.MerchantListInfoVO;
-import com.wxss.hhlife.api.opcenter.request.MerchantListReqVO;
-import com.wxss.hhlife.api.opcenter.request.MerchantListRespVO;
+import com.wxss.hhlife.api.opcenter.request.MerchantApplyListInfoVO;
+import com.wxss.hhlife.api.opcenter.request.MerchantApplyListReqVO;
+import com.wxss.hhlife.api.opcenter.request.MerchantApplyListRespVO;
 import com.wxss.hhlife.base.BaseFacadePageResp;
 import com.wxss.hhlife.base.BaseFacadeResp;
 import com.wxss.hhlife.base.RestResultBuilder;
@@ -13,8 +13,8 @@ import com.wxss.hhlife.base.utils.JsonUtils;
 import com.wxss.hhlife.dubbo.opcenter.api.ApiMerchantService;
 import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateRequest;
 import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateResponse;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListRequest;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListResponse;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantApplyListRequest;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantApplyListResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -41,15 +41,15 @@ public class MerchantController {
     }
 
     @PostMapping("list")
-    public RestResultVO<MerchantListRespVO> selectMerchantList(@RequestBody MerchantListReqVO reqVO){
-        MerchantListRequest apiRequest = new MerchantListRequest();
+    public RestResultVO<MerchantApplyListRespVO> selectMerchantList(@RequestBody MerchantApplyListReqVO reqVO){
+        MerchantApplyListRequest apiRequest = new MerchantApplyListRequest();
         BeanUtils.copyProperties(reqVO,apiRequest);
-        BaseFacadePageResp<MerchantListResponse> facadePageResp = apiMerchantService.getMerchantList(apiRequest);
+        BaseFacadePageResp<MerchantApplyListResponse> facadePageResp = apiMerchantService.getMerchantApplyList(apiRequest);
 
-        MerchantListRespVO respVO = new MerchantListRespVO();
-        MerchantListResponse data = facadePageResp.getData();
-        List<MerchantListInfoVO> infoVOList = JsonUtils.copyList(data.getMerInfoList(), MerchantListInfoVO.class);
-        respVO.setMerchantInfo(infoVOList);
+        MerchantApplyListRespVO respVO = new MerchantApplyListRespVO();
+        MerchantApplyListResponse data = facadePageResp.getData();
+        List<MerchantApplyListInfoVO> merApplyInfoVOList = JsonUtils.copyList(data.getMerInfoList(), MerchantApplyListInfoVO.class);
+        respVO.setMerchantApplyInfo(merApplyInfoVOList);
         respVO.setPageNum(facadePageResp.getPageNum());
         respVO.setPageSize(facadePageResp.getPageSize());
         respVO.setRowTotal(facadePageResp.getRowTotal());

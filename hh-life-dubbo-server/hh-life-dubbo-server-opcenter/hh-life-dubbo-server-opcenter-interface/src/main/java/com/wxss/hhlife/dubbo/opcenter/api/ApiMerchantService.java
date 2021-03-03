@@ -4,8 +4,8 @@ import com.wxss.hhlife.base.BaseFacadePageResp;
 import com.wxss.hhlife.base.BaseFacadeResp;
 import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateRequest;
 import com.wxss.hhlife.dubbo.opcenter.bean.MerchantCreateResponse;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListRequest;
-import com.wxss.hhlife.dubbo.opcenter.bean.MerchantListResponse;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantApplyListRequest;
+import com.wxss.hhlife.dubbo.opcenter.bean.MerchantApplyListResponse;
 
 /**
  * 商户服务dubbo接口定义
@@ -23,5 +23,5 @@ public interface ApiMerchantService {
      * @param listParam
      * @return
      */
-    BaseFacadePageResp<MerchantListResponse> getMerchantList(MerchantListRequest listParam);
+    BaseFacadePageResp<MerchantApplyListResponse> getMerchantApplyList(MerchantApplyListRequest listParam);
 }

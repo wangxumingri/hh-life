@@ -1,17 +1,21 @@
-package com.wxss.hhlife.dubbo.opcenter.bo;
+package com.wxss.hhlife.dubbo.opcenter.bean;
 
+import com.wxss.hhlife.base.BaseFacadeReq;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class MerchantListBO {
-    private int pageNumber;
-    private int pageSize;
+@ToString
+public class MerchantApplyListRequest extends BaseFacadeReq {
+    private int pageNumber ;
+    private int pageSize ;
+
     /**商户编号*/
     private String merchantId;
     /**商户名称*/

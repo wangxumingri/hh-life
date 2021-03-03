@@ -1,9 +1,9 @@
 package com.wxss.hhlife.dubbo.opcenter.service;
 
 import com.wxss.hhlife.base.PageData;
-import com.wxss.hhlife.dubbo.opcenter.bo.MerchantListBO;
+import com.wxss.hhlife.dubbo.opcenter.bo.MerchantApplyListBO;
 import com.wxss.hhlife.dubbo.opcenter.bo.MerchantSaveBO;
-import com.wxss.hhlife.dubbo.opcenter.dto.MerchantInfoDTO;
+import com.wxss.hhlife.dubbo.opcenter.dto.MerchantApplyInfoDTO;
 
 /**
  * spring 商户服务接口
@@ -18,9 +18,9 @@ public interface MerchantService {
 
     /**
      * 查询商户列表
-     * @param merchantListBO
+     * @param merchantApplyListBO
      * @return
      */
-    PageData<MerchantInfoDTO> selectMerchantList(MerchantListBO merchantListBO);
+    PageData<MerchantApplyInfoDTO> selectMerchantApplyList(MerchantApplyListBO merchantApplyListBO);
 
 }

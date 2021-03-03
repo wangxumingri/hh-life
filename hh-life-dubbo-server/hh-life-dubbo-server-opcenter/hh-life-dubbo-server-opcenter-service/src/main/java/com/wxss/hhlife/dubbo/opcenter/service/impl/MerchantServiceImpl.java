@@ -3,10 +3,10 @@ package com.wxss.hhlife.dubbo.opcenter.service.impl;
 import com.wxss.hhlife.base.PageData;
 import com.wxss.hhlife.base.utils.JsonUtils;
 import com.wxss.hhlife.common.IdGenerateAdapter;
-import com.wxss.hhlife.dubbo.opcenter.bo.MerchantListBO;
+import com.wxss.hhlife.dubbo.opcenter.bo.MerchantApplyListBO;
 import com.wxss.hhlife.dubbo.opcenter.bo.MerchantSaveBO;
 import com.wxss.hhlife.dubbo.opcenter.dao.MerchantListDAO;
-import com.wxss.hhlife.dubbo.opcenter.dto.MerchantInfoDTO;
+import com.wxss.hhlife.dubbo.opcenter.dto.MerchantApplyInfoDTO;
 import com.wxss.hhlife.dubbo.opcenter.mapper.MerchantApplyMapper;
 import com.wxss.hhlife.dubbo.opcenter.model.MerchantApply;
 import com.wxss.hhlife.dubbo.opcenter.service.MerchantService;
@@ -67,12 +67,12 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public PageData<MerchantInfoDTO> selectMerchantList(MerchantListBO merchantListBO) {
-        log.info("MerchantServiceImpl#selectMerchantList 入参 :{}", JsonUtils.toJsonStr(merchantListBO));
+    public PageData<MerchantApplyInfoDTO> selectMerchantApplyList(MerchantApplyListBO merchantApplyListBO) {
+        log.info("MerchantServiceImpl#selectMerchantList 入参 :{}", JsonUtils.toJsonStr(merchantApplyListBO));
 
         // TODO 写一个工具类，去除首尾空字符串
         MerchantListDAO merchantListDAO = new MerchantListDAO();
-        BeanUtils.copyProperties(merchantListBO,merchantListDAO);
+        BeanUtils.copyProperties(merchantApplyListBO,merchantListDAO);
         if (merchantListDAO.getPageNumber() < 1){
             merchantListDAO.setPageNumber(0);
         }else {
@@ -83,27 +83,27 @@ public class MerchantServiceImpl implements MerchantService {
         }
         int rowTotal = merchantApplyMapper.selectMerchantCount(merchantListDAO);
         List<MerchantApply> merchantApplyList = merchantApplyMapper.selectMerchantList(merchantListDAO);
-        PageData<MerchantInfoDTO> result = new PageData<>();
+        PageData<MerchantApplyInfoDTO> result = new PageData<>();
         result.setPageNum(merchantListDAO.getPageNumber());
         result.setPageSize(merchantListDAO.getPageSize());
         result.setRowTotal(rowTotal);
         result.setPageCount();
-        List<MerchantInfoDTO> infoDTOList = new ArrayList<>();
+        List<MerchantApplyInfoDTO> infoDTOList = new ArrayList<>();
         result.setData(infoDTOList);
         if (merchantApplyList != null && merchantApplyList.size() >0){
             // TODO 获取地址和门店数量优化成批量
             for (MerchantApply merchantApply : merchantApplyList) {
-                MerchantInfoDTO merchantInfoDTO = new MerchantInfoDTO();
-                merchantInfoDTO.setMerchantName(merchantApply.getMerchantName());
-                merchantInfoDTO.setMerchantStatus(merchantApply.getMerchantStatus());
-                merchantInfoDTO.setAuditStatus(merchantApply.getAuditStatus());
-                merchantInfoDTO.setCreateTime(merchantApply.getCreateTime());
-                merchantInfoDTO.setMerchantId(merchantApply.getMerchantId());
-                merchantInfoDTO.setCreateTime(merchantApply.getCreateTime());
+                MerchantApplyInfoDTO merchantApplyInfoDTO = new MerchantApplyInfoDTO();
+                merchantApplyInfoDTO.setMerchantName(merchantApply.getMerchantName());
+                merchantApplyInfoDTO.setMerchantStatus(merchantApply.getMerchantStatus());
+                merchantApplyInfoDTO.setAuditStatus(merchantApply.getAuditStatus());
+                merchantApplyInfoDTO.setCreateTime(merchantApply.getCreateTime());
+                merchantApplyInfoDTO.setMerchantId(merchantApply.getMerchantId());
+                merchantApplyInfoDTO.setCreateTime(merchantApply.getCreateTime());
                 // TODO 门店待实现
-                merchantInfoDTO.setShopCount(0);
-                merchantInfoDTO.setAddress("假的地址");
-                infoDTOList.add(merchantInfoDTO);
+                merchantApplyInfoDTO.setShopCount(0);
+                merchantApplyInfoDTO.setAddress("假的地址");
+                infoDTOList.add(merchantApplyInfoDTO);
             }
         }
         log.info("MerchantServiceImpl#selectMerchantList 返回 :{}", JsonUtils.toJsonStr(result));

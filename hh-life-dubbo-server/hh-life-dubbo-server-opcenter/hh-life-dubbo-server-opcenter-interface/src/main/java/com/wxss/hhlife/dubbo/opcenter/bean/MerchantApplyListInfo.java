@@ -13,7 +13,7 @@ import java.util.Date;
 @Setter
 @ToString
 @NoArgsConstructor
-public class MerchantListInfo implements Serializable {
+public class MerchantApplyListInfo implements Serializable {
 
     private static final long serialVersionUID = -4464169960931301968L;
     /**商户编号*/

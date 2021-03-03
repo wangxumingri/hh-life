@@ -4,9 +4,9 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.wxss.hhlife.base.*;
 import com.wxss.hhlife.base.utils.JsonUtils;
 import com.wxss.hhlife.dubbo.opcenter.bean.*;
-import com.wxss.hhlife.dubbo.opcenter.bo.MerchantListBO;
+import com.wxss.hhlife.dubbo.opcenter.bo.MerchantApplyListBO;
 import com.wxss.hhlife.dubbo.opcenter.bo.MerchantSaveBO;
-import com.wxss.hhlife.dubbo.opcenter.dto.MerchantInfoDTO;
+import com.wxss.hhlife.dubbo.opcenter.dto.MerchantApplyInfoDTO;
 import com.wxss.hhlife.dubbo.opcenter.service.MerchantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -42,23 +42,23 @@ public class ApiMerchantServiceImpl implements ApiMerchantService {
     }
 
     @Override
-    public BaseFacadePageResp<MerchantListResponse> getMerchantList(MerchantListRequest listParam) {
+    public BaseFacadePageResp<MerchantApplyListResponse> getMerchantApplyList(MerchantApplyListRequest listParam) {
         log.info("ApiMerchantServiceImpl#getMerchantList 入参: {}", JsonUtils.toJsonStr(listParam));
 
-        MerchantListBO merchantListBO = new MerchantListBO();
-        BeanUtils.copyProperties(listParam,merchantListBO);
-        PageData<MerchantInfoDTO> pageData = merchantService.selectMerchantList(merchantListBO);
-        List<MerchantInfoDTO> merchantInfoDTOS = pageData.getData();
+        MerchantApplyListBO merchantApplyListBO = new MerchantApplyListBO();
+        BeanUtils.copyProperties(listParam, merchantApplyListBO);
+        PageData<MerchantApplyInfoDTO> pageData = merchantService.selectMerchantApplyList(merchantApplyListBO);
+        List<MerchantApplyInfoDTO> merchantApplyInfoDTOS = pageData.getData();
         Page page = new Page();
         page.setPageNum(pageData.getPageNum());
         page.setPageSize(pageData.getPageSize());
         page.setRowTotal(pageData.getRowTotal());
-        if (merchantInfoDTOS.size() >0){
-            MerchantListResponse merchantListResponse = new MerchantListResponse();
+        if (merchantApplyInfoDTOS.size() >0){
+            MerchantApplyListResponse merApplyListResp = new MerchantApplyListResponse();
             // TODO
-            List<MerchantListInfo> merchantListInfos = JsonUtils.copyList(merchantInfoDTOS, MerchantListInfo.class);
-            merchantListResponse.setMerInfoList(merchantListInfos);
-            return FacadeCommonRespBuilder.successPage(listParam, merchantListResponse,page);
+            List<MerchantApplyListInfo> merApplyListInfos = JsonUtils.copyList(merchantApplyInfoDTOS, MerchantApplyListInfo.class);
+            merApplyListResp.setMerInfoList(merApplyListInfos);
+            return FacadeCommonRespBuilder.successPage(listParam, merApplyListResp,page);
         }
 
         log.info("ApiMerchantServiceImpl#getMerchantList 返回: page {}", JsonUtils.toJsonStr(page));

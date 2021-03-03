@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MerchantInfoDTO {
+public class MerchantApplyInfoDTO {
     private String merchantApplyId;
     /**商户编号*/
     private String merchantId;
